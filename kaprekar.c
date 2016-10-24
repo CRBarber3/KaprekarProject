@@ -1,16 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "unit_tests.h"
 //#include "CUnit-2.1-3/CUnit/Headers/Basic.h"
 
-#define HIGH   (4321)
-#define LOW    (1234)
-#define DIGITS (4)
+//#define HIGH   (4321)
+//#define LOW    (1234)
+//#define DIGITS (4)
 
 /***************DEV NOTES**********************
 
 -- Does not add leading zeros (doesn't work for
-   small inputs)
+   small inputs) --working
 
 -- Input not validated properly
 
@@ -149,6 +150,7 @@ int run_routine(int num)
 
 int main()
 {
+
     printf("Enter -1 to quit\n\n\n");
 
     int input = get_number();
@@ -163,42 +165,10 @@ int main()
     }
     
     return 0;
- 
-    //printf("fail_count: %d\n", test_sort() );
+
 }
 
-
-int test_sort()
+void test()
 {
-    int fail_count = 0;
-    
-    if( sort_number(5341, HIGH) != 5431 )
-    {
-        printf("FAILURE: sort_number on HIGH\n");
-        printf("i: %d\n", 5341);
-        printf("e: %d\n", 5431);
-        printf("r: %d\n", sort_number(5241, HIGH) );
-        fail_count++; 
-    }
-
-    if( sort_number(9831, HIGH) != 9831 )
-    {
-        printf("FAILURE: sort_number on HIGH\n");
-        printf("i: %d\n", 9831);
-        printf("e: %d\n", 9831);
-        printf("r: %d\n", sort_number(9831, HIGH) );
-        fail_count++; 
-    }
-
-    if( sort_number(9831, LOW) != 1389 )
-    {
-        printf("FAILURE: sort_number on LOW\n");
-        printf("i: %d\n", 9831);
-        printf("e: %d\n", 1389);
-        printf("r: %d\n", sort_number(9831, LOW) );
-        fail_count++; 
-    }
-
-    return fail_count;
-
+    printf("fail_count: %d\n", test_sort_number() );
 }
