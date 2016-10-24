@@ -45,11 +45,17 @@ int get_number()
 
         if( var == -1 )
         {
-            break;
+            return var;
         }
     }
 
-    return(var);
+    //add zeros if number is < 4 digits long
+    while( var < 1000 )
+    {
+        var *= 10;
+    }
+
+    return var;
 }
 
 /*
@@ -64,7 +70,8 @@ int sort_number(int num, int how)
     char sorted_str[DIGITS + 1] = ""; //used to store the sorted string of digits
     char str[DIGITS + 1];        //used to store the number as a string
     sprintf(str, "%d", num);     //convert number to string
-    
+
+    //printf("THE STRING: %s\n", str); 
     char target = str[0]; //used to store the current target digit (largest for HIGH, smallest for LOW)
     int remove_index = -1; //used to store the index of the largest digit (to be removed)
 
@@ -103,8 +110,7 @@ int sort_number(int num, int how)
     }
     
     //convert to integer
-    int result = strtol(sorted_str, NULL, 10); 
-
+    int result = (int) strtol(sorted_str, NULL, 10); 
     return result;
 }
 
@@ -116,7 +122,7 @@ This looping point means Kaprekar's constant has been reached.
 int run_routine(int num)
 {
     int runs = 0;
-    int diff = 0;
+    int diff = -1;
     int diff_prev = num;
 
     int s1 = sort_number(diff_prev, HIGH);
@@ -134,6 +140,7 @@ int run_routine(int num)
         diff = s1 - s2;
 
         runs++;
+        printf("diff: %d\n", diff);
     }
 
     return runs;
@@ -155,4 +162,42 @@ int main()
     }
     
     return 0;
+ 
+    //printf("fail_count: %d\n", test_sort() );
+}
+
+
+int test_sort()
+{
+    int fail_count = 0;
+    
+    if( sort_number(5341, HIGH) != 5431 )
+    {
+        printf("FAILURE: sort_number on HIGH\n");
+        printf("i: %d\n", 5341);
+        printf("e: %d\n", 5431);
+        printf("r: %d\n", sort_number(5241, HIGH) );
+        fail_count++; 
+    }
+
+    if( sort_number(9831, HIGH) != 9831 )
+    {
+        printf("FAILURE: sort_number on HIGH\n");
+        printf("i: %d\n", 9831);
+        printf("e: %d\n", 9831);
+        printf("r: %d\n", sort_number(9831, HIGH) );
+        fail_count++; 
+    }
+
+    if( sort_number(9831, LOW) != 1389 )
+    {
+        printf("FAILURE: sort_number on LOW\n");
+        printf("i: %d\n", 9831);
+        printf("e: %d\n", 1389);
+        printf("r: %d\n", sort_number(9831, LOW) );
+        fail_count++; 
+    }
+
+    return fail_count;
+
 }
