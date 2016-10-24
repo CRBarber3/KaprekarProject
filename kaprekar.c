@@ -150,7 +150,7 @@ int run_routine(int num)
 
 int main()
 {
-
+/*
     printf("Enter -1 to quit\n\n\n");
 
     int input = get_number();
@@ -163,12 +163,9 @@ int main()
     
         input = get_number();
     }
-    
+  */
+    test_all();  
     return 0;
 
 }
 
-void test()
-{
-    printf("fail_count: %d\n", test_sort_number() );
-}
