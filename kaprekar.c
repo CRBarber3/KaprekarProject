@@ -45,14 +45,8 @@ int get_number()
 
         if( var == -1 )
         {
-            return var;
+            break;
         }
-    }
-
-    //add zeros if number is < 4 digits long
-    while( var < 1000 )
-    {
-        var *= 10;
     }
 
     return var;
@@ -67,6 +61,13 @@ Returns the sorted integer.
 */
 int sort_number(int num, int how)
 {
+
+    //add zeros if number is < 4 digits long
+    while( num < 1000 )
+    {
+        num *= 10;
+    }
+
     char sorted_str[DIGITS + 1] = ""; //used to store the sorted string of digits
     char str[DIGITS + 1];        //used to store the number as a string
     sprintf(str, "%d", num);     //convert number to string
