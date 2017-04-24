@@ -4,9 +4,6 @@
 #include "unit_tests.h"
 //#include "CUnit-2.1-3/CUnit/Headers/Basic.h"
 
-//#define HIGH   (4321)
-//#define LOW    (1234)
-//#define DIGITS (4)
 
 /***************DEV NOTES**********************
 
@@ -33,7 +30,8 @@
 
 
 /*
-Does not account for decimal (5.5)
+Gets input as string; converts to int if input is correct
+Returns -1 if 'quit' is entered
 */
 int get_number()
 {
@@ -42,14 +40,50 @@ int get_number()
     while( var <= 0 || var > 9999 )
     {
         printf("Input a four digit integer: \n");
-        scanf("%i", &var);
 
-        if( var == -1 )
+        var = -1;
+        int i = 0;
+        char ch = '\0';
+        char str[MAX_CHARS];
+
+        for( ch = getchar(); ch != '\0' && ch != '\n'; ch = getchar() )
         {
-            break;
+            str[ i++ ] = ch;
+            str[ i ] = '\0';
         }
-    }
 
+        //stop immediately if user enters quit
+        if( strcmp(str, "quit") == 0 )
+        {
+            return var;
+        }
+
+        //check string is proper length
+        if( strlen(str) > DIGITS )
+        {
+            printf("Invalid input: inproper length\n");
+            var = -2;
+        }
+
+        //check that every character entered is a number
+        int j = 0;
+        for( j = 0; j < strlen(str); j++ )
+        {
+            //character falls outside digit ascii values
+            if( str[j] < 48 || str[j] > 57 )
+            {
+                printf("Invalid input: not integer\n");
+                var = -2;                
+                break;
+            }
+        }
+
+        if( var != -2 )
+        {
+            var = (int) strtol(str, NULL, 10);
+        } 
+    }
+    
     return var;
 }
 
@@ -148,24 +182,30 @@ int run_routine(int num)
     return runs;
 }
 
-int main()
+int main(int argc, char **argv)
 {
-/*
-    printf("Enter -1 to quit\n\n\n");
-
-    int input = get_number();
-    int runs = 0;
-
-    while( input != -1 )
+    //run test functionality by including "test"
+    //as a command line argument
+    if( argc > 1 && strcmp(argv[1], "test") == 0 )
     {
-        runs = run_routine( input );
-        printf("runs: %i\n", runs);
-    
-        input = get_number();
+        test_all();
     }
-  */
-    test_all();  
-    return 0;
+    else
+    {
+        printf("Type quit to quit\n\n\n");
 
+        int input = get_number();
+        int runs = 0;
+
+        while( input != -1 )
+        {
+            runs = run_routine( input );
+            printf("runs: %i\n", runs);
+        
+            input = get_number();
+        }
+    }  
+
+    return 0;
 }
 

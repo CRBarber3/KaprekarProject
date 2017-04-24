@@ -7,11 +7,11 @@
 
 int test_sort_number()
 {
-    int high_input[max_tests] =    {5341, 9831 };
-    int high_expected[max_tests] = {5431, 9831 };
+    int high_input[] =    {5341, 9831, 1234};
+    int high_expected[] = {5431, 9831, 4321};
 
-    int low_input[max_tests] =    {5341, 9831 };
-    int low_expected[max_tests] = {1345, 1389 };
+    int low_input[] =    {5341, 9831 };
+    int low_expected[] = {1345, 1389 };
 
     int fail_count = 0;
     
@@ -45,7 +45,7 @@ int test_sort_number()
         }
         else
         {
-            printf("sor_number on LOW: PASS\n");
+            printf("sort_number on LOW: PASS\n");
         }
     }
 
